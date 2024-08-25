@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <!-- Header with Location and Current Weather -->
+    <TextView
+        android:id="@+id/locationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/currentTempTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationTextView"
+        android:textSize="48sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/humidityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/currentTempTextView"
+        android:textSize="48sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/humidityTextView"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/weatherIconImageView"
+        android:layout_width="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="250dp"
+        android:layout_below="@id/descriptionText"
+        android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:id="@+id/llSunrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/weatherIconImageView">
+        <ImageView
+            android:id="@+id/sunriseIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/sunriseTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginStart="25dp"
+            android:textSize="18sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </LinearLayout>
+
+   <LinearLayout
+       android:id="@+id/llSunset"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="15dp"
+       android:layout_centerHorizontal="true"
+       android:layout_below="@id/llSunrise">
+       <ImageView
+           android:id="@+id/sunsetIcon"
+           android:layout_width="45dp"
+           android:layout_height="45dp">
+       </ImageView>
+
+       <TextView
+           android:id="@+id/sunsetTime"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textAlignment="center"
+           android:layout_marginStart="25dp"
+           android:textSize="18sp"
+           android:textStyle="bold">
+
+       </TextView>
+
+   </LinearLayout>
+
+
+</RelativeLayout>

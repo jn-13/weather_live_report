@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.android) // Replace with your Kotlin version
+    kotlin("kapt")
 }
 
 android {
@@ -14,12 +17,25 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "OPENWEATHERMAP_API_KEY",
+            (project.properties["OPENWEATHERMAP_API_KEY"] ?: "\"\"").toString()
+        )
+
+
+//        val apiKey: String? by project
+//        buildConfigField("String", "OPENWEATHERMAP_API_KEY", "\"${apiKey ?: ""}\"")
+
+
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
 
+    buildFeatures {
+        buildConfig = true // Enable BuildConfig feature
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -38,6 +54,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -66,4 +83,14 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.room.runtime)
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation(libs.glide) // Check for the latest version
+    kapt(libs.compiler)
 }
