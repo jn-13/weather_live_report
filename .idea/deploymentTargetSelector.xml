@@ -4,14 +4,17 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-08-19T17:29:52.259154200Z">
+        <DropdownSelection timestamp="2024-08-25T18:06:04.988487700Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\jeeva\.android\avd\Pixel_6a_API_35.avd" />
+              <DeviceId pluginId="Default" identifier="serial=emulator-5554;connection=de854cb3" />
             </handle>
           </Target>
         </DropdownSelection>
         <DialogSelection />
+      </SelectionState>
+      <SelectionState runConfigName="Weather_Live_Report">
+        <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
   </component>
