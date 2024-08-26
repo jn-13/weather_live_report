@@ -1,14 +1,19 @@
 package com.example.weatherlivereport
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.weatherlivereport.databinding.ActivityMainBinding
 import com.example.weatherlivereport.ui.theme.WeatherReportViewModel
 import com.bumptech.glide.Glide
+import com.example.weatherlivereport.ui.theme.WeatherViewModelFactory
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -17,7 +22,7 @@ import java.time.format.DateTimeFormatter
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: WeatherReportViewModel by viewModels()
+    private lateinit var viewModel: WeatherReportViewModel
     private lateinit var binding: ActivityMainBinding
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -26,7 +31,9 @@ class MainActivity : ComponentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Fetch weather data for a sample city
+        val factory = WeatherViewModelFactory(applicationContext)
+        viewModel = ViewModelProvider(this, factory)[WeatherReportViewModel::class.java]
+
         viewModel.fetchWeather("bangalore")
 
         viewModel.weatherData.observe(this, Observer { resWeather ->
@@ -35,7 +42,7 @@ class MainActivity : ComponentActivity() {
             binding.locationTextView.text = resWeather.name
             binding.descriptionText.text = resWeather.weather[0].description
 
-            // Load weather icon
+
             val iconUrl = "https://openweathermap.org/img/w/${resWeather.weather[0].icon}.png"
             Glide.with(this).load(iconUrl
             ).into(binding.weatherIconImageView)
@@ -44,6 +51,10 @@ class MainActivity : ComponentActivity() {
             Glide.with(this).load(R.drawable.ic_sunset
             ).skipMemoryCache(true).into(binding.sunsetIcon)
             this.timeConverter(resWeather.sys.sunrise, resWeather.sys.sunset)
+
+            if (!isNetworkAvailable(this)) {
+               viewModel.loadingCachedWeather()
+            }
         })
     }
 
@@ -63,6 +74,13 @@ class MainActivity : ComponentActivity() {
         binding.sunriseTime.text = sunriseTime.format(formatter)
         binding.sunsetTime.text = sunsetTime.format(formatter)
 
+    }
+
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
 }

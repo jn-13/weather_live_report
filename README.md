@@ -2,11 +2,12 @@
 
 ***Overview***
 
-WeatherLiveReport is an Android application that displays the current weather information of the user's location. It fetches data from the OpenWeatherMap API and provides a user-friendly interface. The app is built using MVVM architecture, Retrofit for network operations, and Kotlin coroutines for asynchronous tasks.
+WeatherLiveReport is an Android application that displays the current weather information of the user's location. It fetches data from the OpenWeatherMap API and provides a user-friendly interface with offline availability of the last seen weather information. The app is built using MVVM architecture, Retrofit for network operations, and Kotlin coroutines for asynchronous tasks.
 
 ***Features***
 
 Real-time Weather Data: Fetches the current weather for the user's location.
+Offline Mode: Displays the last seen weather information when offline.
 Creative UI: An aesthetically pleasing and intuitive user interface using Jetpack Compose/XML.
 MVVM Architecture: Ensures separation of concerns and testability.
 Secure API Key Handling: The API key is referenced in a single location and can be easily removed before sharing the code publicly.
